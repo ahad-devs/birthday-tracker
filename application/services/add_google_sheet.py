@@ -20,12 +20,12 @@ class AddGoogleSheet:
         if "/spreadsheets/d/" not in parsed_url.path:
             raise ValueError("Invalid Google Sheet URL.")
 
-        spreadsheet_id = self.extract_spreadsheet_id(parsed_url.path)
+        spreadsheet_id = self._extract_spreadsheet_id(parsed_url.path)
 
         return spreadsheet_id
 
     # Extracting spreadsheet id for later APIs
-    def extract_spreadsheet_id(self, path: str) -> str:
+    def _extract_spreadsheet_id(self, path: str) -> str:
         split_path = path.split("/")
 
         # Find the index d and id is the next item in split_path list
