@@ -26,7 +26,11 @@ class AddGoogleSheet:
 
         # spreadsheet_id = self._extract_spreadsheet_id(parsed_url.path)
 
-        self.repository.save(sheet_url)
+        try:
+            self.repository.check_duplicate(sheet_url)
+            self.repository.save(sheet_url)
+        except ValueError as error:
+            print(f"Cannot add URl: {error}")
         
         return sheet_url
 
