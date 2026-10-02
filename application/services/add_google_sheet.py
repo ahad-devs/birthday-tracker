@@ -25,14 +25,18 @@ class AddGoogleSheet:
             raise ValueError("Invalid Google Sheet URL.")
 
         spreadsheet_id = self._extract_spreadsheet_id(parsed_url.path)
-
+        newly_added: bool
         # Check if the url already exists in the repository
         if self.repository.check_duplicate(spreadsheet_id) is True:
             print ("URL already exists in the repository")
+            newly_added = False
         else:
             self.repository.save(sheet_url, spreadsheet_id)
+            print ("URL added to the repository!")
+            newly_added = True
+
+        return {"Newly added" : newly_added, "URL": sheet_url}
         
-        # return sheet_url
 
     # Extracting spreadsheet id for later APIs
     def _extract_spreadsheet_id(self, path: str) -> str:
